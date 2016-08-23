@@ -1,0 +1,12 @@
+# Nest App Config YAML
+# IP Address & port to connect to iot-gateway
+addr: 0.0.0.0
+port: 3567
+
+# Domain and credentials
+domain_id: '[6:gateway.cstkit.com]'
+auth_id: '[127:{BFFBFF}]'
+key: 0000000000000000000000000000000000000000000000000000000000000000
+
+# Provider ID
+provider_id: '[3:admin@root.cstkit.com]'

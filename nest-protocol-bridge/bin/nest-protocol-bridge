@@ -1,0 +1,36 @@
+#!/bin/bash
+
+NAME=nest-protocol-bridge
+PID=$NAME.pid
+YAML=$NAME.yaml
+
+cd "$(dirname "$0")"
+cd ../
+
+CP="lib/*:conf:"
+CONF="conf"
+
+if [[ `uname` =~ ^CYGWIN.* ]]; then
+    CP=`cygpath -w -p $CP`
+    CONF=`cygpath -w -p $CONF`
+fi
+
+if [[ `uname` =~ ^MINGW.* ]]; then
+    CP=${CP//:/;}
+fi
+
+if [ "$1" = "start" ]; then
+    if [ ! -f $PID ]; then
+      java -Xmx2g -cp $CP com.cstkit.demo.nest.?? $CONF/$YAML &
+      echo $! > $PID
+    else
+      echo "Already started"
+    fi
+elif [ "$1" = "stop" ]; then
+    if [ -f $PID ]; then
+        kill $(cat $PID)
+        rm $PID
+    fi
+else
+    echo "Usage: nest-protocol-bridge <start|stop>"
+fi
